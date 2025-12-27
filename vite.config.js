@@ -3,7 +3,13 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
+const isGitHubPages = process.env.GITHUB_PAGES === 'true'
+const basePath = isGitHubPages ? '/momentum/' : '/'
+
 export default defineConfig({
+  // Base path for GitHub Pages (change to your repo name if deploying to /repo-name/)
+  // For root domain deployment, use '/'
+  base: basePath,
   plugins: [
     react(),
     VitePWA({
@@ -17,8 +23,8 @@ export default defineConfig({
         background_color: '#1a1a1a',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/',
-        start_url: '/',
+        scope: basePath,
+        start_url: basePath,
         icons: [
           {
             src: 'pwa-192x192.png',
